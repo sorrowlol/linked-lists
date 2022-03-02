@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'node'
 
+# linked-list class
 class LinkedList
   attr_reader :head, :tail
 
@@ -11,18 +14,17 @@ class LinkedList
   def append(value)
     new_node = Node.new(value)
     if @head.nil?
-      @head = new_node 
-      @tail = new_node
+      @head = new_node
     else
       @tail.next_node = new_node
-      @tail = new_node
     end
+    @tail = new_node
   end
 
   def prepend(value)
     new_node = Node.new(value)
     if @head.nil?
-      @head = new_node 
+      @head = new_node
       @tail = new_node
     else
       new_node.next_node = @head
@@ -32,17 +34,17 @@ class LinkedList
 
   def size
     count = 1
-    until @head.next_node == nil
+    until @head.next_node.nil?
       @head = @head.next_node
       count += 1
     end
-    return count
+    count
   end
 
   def head
     puts @head.data
   end
-  
+
   def tail
     puts @tail.data
   end
@@ -55,12 +57,10 @@ class LinkedList
     end
     puts @head.data
   end
-  
+
   def pop
     temp = @head
-    until @head.next_node == @tail
-      @head = @head.next_node
-    end
+    @head = @head.next_node until @head.next_node == @tail
     @head.next_node = nil
     @tail = @head
     @head = temp
@@ -68,7 +68,7 @@ class LinkedList
 
   def contains?(value)
     temp = @head
-    until @head == nil
+    until @head.nil?
       if @head.data == value
         puts true
         @head = temp
@@ -83,7 +83,7 @@ class LinkedList
   def find(value)
     temp = @head
     idx = 0
-    until @head == nil
+    until @head.nil?
       if @head.data == value
         puts idx
         @head = temp
@@ -92,20 +92,19 @@ class LinkedList
       idx += 1
       @head = @head.next_node
     end
-    @head = temp 
+    @head = temp
     p nil
   end
 
   def to_s
     temp = @head
-    until @head == nil
+    until @head.nil?
       print "( #{@head.data} ) -> "
       @head = @head.next_node
     end
-    @head = temp 
-    print "nil"
+    @head = temp
+    print 'nil'
   end
-
 end
 
 my_list = LinkedList.new
